@@ -10,7 +10,6 @@ const excludedDate = ["01-10-2022","01-14-2022", "01-15-2022","01-17-2022","01-2
 //get-all-date-function-from-startdate-enddate
 let getDaysBetweenDates = function(startDate, endDate) {
     let now = startDate.clone(), dates = [];
-
     while (now.isSameOrBefore(endDate)) {
         dates.push(now.format('MM-DD-YYYY'));
         now.add(1, 'days');
@@ -30,9 +29,6 @@ console.log(findNewArray)
 
 //pair-date
 function pairwise(arr, func){
-    // for(var i=0; i < arr.length - 1; i++){
-    //     func(arr[i], arr[i + 1])
-    // }
     arr.forEach((array,index) => {
       func(array,arr[index + 1])
     })
@@ -40,10 +36,12 @@ function pairwise(arr, func){
 let findPair = []
 pairwise(excludedDate, function(current, next){
     console.log(current, next)
+    //date-diff-between-next-current
     const diffDays = parseInt(new Date(next) - new Date(current)) 
     const calculateDay = Math.ceil(diffDays / (1000 * 60 * 60 * 24))
     console.log(calculateDay)
-    // findPair.push(current,next)
+
+    //date-add-subtract-for-pair
     let startObj;
     let endObj;
     excludedDate.forEach(
@@ -64,10 +62,12 @@ pairwise(excludedDate, function(current, next){
 })
 console.log(findPair)
 
+//require-last-element-date-for-last-pair
 const lastElementDate = findNewArray[findNewArray.length-1]
 console.log(lastElementDate)
 const lastElementMoment = moment(lastElementDate,"MM-DD-YYYY")
 console.log(lastElementMoment)
+//excluded-date-sorted-for-get-exact-last-date
 const sortExculded = excludedDate.sort((a, b) => b > a ? -1 : 1)
 console.log(sortExculded)
 const lastExcludedElement = sortExculded[sortExculded.length-1]
@@ -76,9 +76,11 @@ console.log(lastExcludedElement)
 const addDaysWithExclude = moment(lastExcludedElement, "MM-DD-YYYY" ).add(1, 'days')
 console.log(addDaysWithExclude)
 
+//last-pair-for-rest-of-date
 const lastPair = [{'start ': addDaysWithExclude._d,'end':lastElementMoment._d }]
 console.log(lastPair)
 
+//concat-the-pair-and-got-final-output
 const afterAllPair = findPair.concat(lastPair)
 console.log(afterAllPair)
 
