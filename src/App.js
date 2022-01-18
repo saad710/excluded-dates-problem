@@ -120,6 +120,23 @@ else{
   lastPair = []
 }
 
+//firstpair
+let firstpair;
+// if(sortExculded[0] !== startDate)
+console.log(sortExculded[0])
+console.log(startDate)
+console.log(sortExculded[0] === startDate._i)
+if(sortExculded[0] !== startDate._i){
+  const endItem = moment(sortExculded[0], "MM-DD-YYYY" ).subtract(1, 'days')
+  console.log(endItem)
+  firstpair =[{'start ': moment(startDate._i).format('LL'),'end': moment(endItem._d).format('LL') }]
+}
+else{
+  firstpair = []
+}
+console.log(firstpair)
+
+
 //concat-the-pair-and-got-final-output
 let afterAllPair;
 if (excludedDate === undefined || excludedDate.length === 0 || dateList.length === 0 ) {
@@ -133,7 +150,7 @@ if (excludedDate === undefined || excludedDate.length === 0 || dateList.length =
   
 }
 else{
-  afterAllPair = findPair.concat(lastPair)
+  afterAllPair = findPair.concat(firstpair,lastPair)
 }
 console.log(afterAllPair)
 
