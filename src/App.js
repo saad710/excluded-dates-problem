@@ -4,28 +4,10 @@ import moment from 'moment';
 
 function App() {
   
-   // start_date = '01-10-2022';
-// end_date = '01-31-2022';
-// excluded = ["10-01-2022", "14-01-2022"];
-// output: [{"startDate":"11-Jan-2022","endDate":"13-Jan-2022"},{"startDate":"15-Jan-2022","endDate":"31-Jan-2022"}]
+  //excluded-days
+const excludedDate = ["01-10-2022","01-14-2022", "01-15-2022","01-17-2022","01-20-2022","01-30-2022"];
 
-// const start = moment('01-10-2022');
-// const end = moment('01-31-2022');
-const excludedDate = ["01-10-2022","01-14-2022", "01-15-2022","01-20-2022","01-30-2022"];
-
-// const findDate = 
-
-// var currentDate = moment('01-10-2022');
-// var futureMonth = moment(currentDate).add(1, 'M');
-// var futureMonthEnd = moment(futureMonth).endOf('month');
-
-// let findDate;
-
-// if(start.date() !=end.date() ) {
-//     findDate = start.add(1, 'd');
-// }
-// console.log(findDate)
-
+//get-all-date-function-from-startdate-enddate
 let getDaysBetweenDates = function(startDate, endDate) {
     let now = startDate.clone(), dates = [];
 
@@ -36,60 +18,51 @@ let getDaysBetweenDates = function(startDate, endDate) {
     return dates;
 };
 
-let startDate = moment('01-10-2022');
-let endDate = moment('01-31-2022');
-
-let dateList = getDaysBetweenDates(startDate, endDate);
+//start_end
+const startDate = moment('01-10-2022');
+const endDate = moment('01-31-2022');
+const dateList = getDaysBetweenDates(startDate, endDate);
 console.log(dateList);
 
+//unique-day-after-remove-exclude
 const findNewArray = dateList.filter(val => !excludedDate.includes(val));
 console.log(findNewArray)
 
-// let main = []
-// dateList.forEach(d => {
-//     excludedDate.forEach(ex => {
-        
-//     })
-// })
-
-
+//pair-date
 function pairwise(arr, func){
     // for(var i=0; i < arr.length - 1; i++){
     //     func(arr[i], arr[i + 1])
     // }
-
-  
     arr.forEach((array,index) => {
       func(array,arr[index + 1])
     })
 }
-let f = []
+let findPair = []
 pairwise(excludedDate, function(current, next){
     console.log(current, next)
-    var diffDays = parseInt(new Date(next) - new Date(current)) 
-    let calculateDay = Math.ceil(diffDays / (1000 * 60 * 60 * 24))
+    const diffDays = parseInt(new Date(next) - new Date(current)) 
+    const calculateDay = Math.ceil(diffDays / (1000 * 60 * 60 * 24))
     console.log(calculateDay)
-    // f.push(current,next)
-    let s;
-    let e;
+    // findPair.push(current,next)
+    let startObj;
+    let endObj;
     excludedDate.forEach(
       ex => {
         if(ex === current){
-            s = moment(current, "MM-DD-YYYY").add(1, 'days');
-            console.log(s)
+            startObj = moment(current, "MM-DD-YYYY").add(1, 'days');
+            console.log(startObj)
         }
         if(ex === next){
-          e = moment(next, "MM-DD-YYYY" ).subtract(1, 'days')
+          endObj = moment(next, "MM-DD-YYYY" ).subtract(1, 'days')
         }
       }
     )
-    
-   if(calculateDay > 2){
-    f.push({'start' : s._d, 'end' : e._d})
+   if(calculateDay > 1){
+    findPair.push({'start' : startObj._d, 'end' : endObj._d})
    }
     
 })
-console.log(f)
+console.log(findPair)
 
 const lastElementDate = findNewArray[findNewArray.length-1]
 console.log(lastElementDate)
@@ -106,7 +79,7 @@ console.log(addDaysWithExclude)
 const lastPair = [{'start ': addDaysWithExclude._d,'end':lastElementMoment._d }]
 console.log(lastPair)
 
-const afterAllPair = f.concat(lastPair)
+const afterAllPair = findPair.concat(lastPair)
 console.log(afterAllPair)
 
   return (
