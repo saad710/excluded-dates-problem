@@ -6,27 +6,9 @@ function App() {
 
 const startDate = moment('01-10-2022');
 console.log(startDate)
-const endDate = moment('01-22-2022');
-  
+const endDate = moment('01-31-2023');
   //excluded-days
-const excludedDate = ['01-15-2022','01-10-202','01-14-2023','01-17-2023','01-20-2023','01-31-2023'];
-
-excludedDate.forEach(ex => {
-  if(new Date(ex).getFullYear() !== new Date('01-10-2022').getFullYear()){
-    excludedDate.pop(ex)
-  }
-})
-console.log(excludedDate)
-
-// console.log(new Date('01-10-2022').getFullYear() === new Date('01-14-2022').getFullYear())
-// let per = [];
-// excludedDate?.forEach(ex => {
-//   if( new Date(ex).getFullYear() === new Date('01-10-2022').getFullYear()){
-//     per.push(ex)
-//   }
-// })
-// console.log(per)
-
+const exclude = ['01-10-2022','01-12-2022','01-14-202','01-15-2022','01-17-2024','01-21-2022','01-20-2023','01-31-2023'];
 
 //get-all-date-function-from-startdate-enddate
 let getDaysBetweenDates = function(startDate, endDate) {
@@ -37,19 +19,24 @@ let getDaysBetweenDates = function(startDate, endDate) {
     }
     return dates;
 };
-
 //start_end
-
 const dateList = getDaysBetweenDates(startDate, endDate);
-console.log(dateList);
-console.log(startDate > endDate)
+// const uniqueYear = [...new Set(new Date(dateList).getFullYear())];
+const uniqueYear = Array.from(new Set(dateList.map(x => new Date(x).getFullYear())));
+console.log(uniqueYear)
 
-
-
+let excludedDate = [];
+uniqueYear?.forEach(uni => {
+exclude?.forEach(ex => {
+  if( new Date(ex).getFullYear() === uni){
+    excludedDate.push(ex)
+  }
+})
+})
+console.log(excludedDate)
 //unique-day-after-remove-exclude
 const findNewArray = dateList.filter(val => !excludedDate.includes(val));
 console.log(findNewArray)
-
 //pair-date
 function pairwise(arr, func){
    if(arr !== undefined || arr.length !== 0 ){
@@ -93,8 +80,11 @@ console.log(lastElementDate)
 const lastElementMoment = moment(lastElementDate,"MM-DD-YYYY")
 console.log(lastElementMoment)
 //excluded-date-sorted-for-get-exact-last-date
-const sortExculded = excludedDate?.sort((current, next) => next > current ? -1 : 1)
+const sortExculded = excludedDate?.sort((current, next) =>new Date ( next) > new Date (current) ? -1 : 1)
 console.log(sortExculded)
+
+console.log(new Date('01-20-2023') > new Date('01-20-2022') )
+
 const lastExcludedElement = sortExculded[sortExculded.length-1]
 console.log(lastExcludedElement)
 
@@ -111,6 +101,23 @@ else{
   lastPair = []
 }
 
+//firstpair
+let firstpair;
+// if(sortExculded[0] !== startDate)
+console.log(sortExculded[0])
+console.log(startDate)
+console.log(sortExculded[0] === startDate._i)
+if(sortExculded[0] !== startDate._i){
+  const endItem = moment(sortExculded[0], "MM-DD-YYYY" ).subtract(1, 'days')
+  console.log(endItem)
+  firstpair =[{'start ': moment(startDate._i).format('LL'),'end': moment(endItem._d).format('LL') }]
+}
+else{
+  firstpair = []
+}
+console.log(firstpair)
+
+
 //concat-the-pair-and-got-final-output
 let afterAllPair;
 if (excludedDate === undefined || excludedDate.length === 0 || dateList.length === 0 ) {
@@ -124,7 +131,7 @@ if (excludedDate === undefined || excludedDate.length === 0 || dateList.length =
   
 }
 else{
-  afterAllPair = findPair.concat(lastPair)
+  afterAllPair = findPair.concat(firstpair,lastPair)
 }
 console.log(afterAllPair)
 
