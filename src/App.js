@@ -6,28 +6,9 @@ function App() {
 
 const startDate = moment('01-10-2022');
 console.log(startDate)
-<<<<<<< HEAD
 const endDate = moment('01-31-2023');
   //excluded-days
 const exclude = ['01-10-2022','01-12-2022','01-14-202','01-15-2022','01-17-2024','01-21-2022','01-20-2023','01-31-2023'];
-=======
-const endDate = moment('01-31-2022');
-
-  
-  //excluded-days
-const exclude = ['01-10-2022','01-14-2022','01-15-2022','01-17-2022','01-21-2022','01-20-2023'];
-
-// excludedDate.forEach(ex => {
-//   if(new Date(ex).getFullYear() !== new Date('01-10-2022').getFullYear()){
-//     excludedDate.pop(ex)
-//   }
-// })
-// console.log(excludedDate)
-
-console.log(new Date('01-10-2022').getFullYear() === new Date('01-14-2022').getFullYear())
-
-
->>>>>>> 55af84c85ef3f97a564c14db961c3d132b6bf2de
 
 //get-all-date-function-from-startdate-enddate
 let getDaysBetweenDates = function(startDate, endDate) {
@@ -53,15 +34,6 @@ exclude?.forEach(ex => {
 })
 })
 console.log(excludedDate)
-<<<<<<< HEAD
-=======
-
-console.log(dateList);
-console.log(startDate > endDate)
-
-
-
->>>>>>> 55af84c85ef3f97a564c14db961c3d132b6bf2de
 //unique-day-after-remove-exclude
 const findNewArray = dateList.filter(val => !excludedDate.includes(val));
 console.log(findNewArray)
