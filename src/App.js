@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 
 import moment from 'moment';
+import AnotherSolution from './AnotherSolution';
 
 function App() {
 
@@ -21,10 +22,10 @@ let getDaysBetweenDates = function(startDate, endDate) {
 };
 //start_end
 const dateList = getDaysBetweenDates(startDate, endDate);
-// const uniqueYear = [...new Set(new Date(dateList).getFullYear())];
 const uniqueYear = Array.from(new Set(dateList.map(x => new Date(x).getFullYear())));
 console.log(uniqueYear)
 
+//get-excluded-date-using-start-end-date-year
 let excludedDate = [];
 uniqueYear?.forEach(uni => {
 exclude?.forEach(ex => {
@@ -70,7 +71,6 @@ pairwise(excludedDate, function(current, next){
    if(calculateDay > 1){
     findPair.push({'start' : moment(startObj._d).format('LL'), 'end' : moment(endObj._d).format('LL')})
    }
-    
 })
 console.log(findPair)
 
@@ -82,9 +82,7 @@ console.log(lastElementMoment)
 //excluded-date-sorted-for-get-exact-last-date
 const sortExculded = excludedDate?.sort((current, next) =>new Date ( next) > new Date (current) ? -1 : 1)
 console.log(sortExculded)
-
-console.log(new Date('01-20-2023') > new Date('01-20-2022') )
-
+//last-element-excluded
 const lastExcludedElement = sortExculded[sortExculded.length-1]
 console.log(lastExcludedElement)
 
@@ -103,7 +101,6 @@ else{
 
 //firstpair
 let firstpair;
-// if(sortExculded[0] !== startDate)
 console.log(sortExculded[0])
 console.log(startDate)
 console.log(sortExculded[0] === startDate._i)
@@ -121,23 +118,22 @@ console.log(firstpair)
 //concat-the-pair-and-got-final-output
 let afterAllPair;
 if (excludedDate === undefined || excludedDate.length === 0 || dateList.length === 0 ) {
-  // afterAllPair = [{'start' : moment(startDate._i).format('LL'),end:moment(endDate._i).format('LL') }]
   if(endDate > startDate){
     afterAllPair = [{'start' : moment(startDate._i).format('LL'),end:moment(endDate._i).format('LL') }]
   }
   else{
     afterAllPair = [{'start' : moment(startDate._i).format('LL'),end:moment(startDate._i).format('LL') }]
   }
-  
 }
 else{
-  afterAllPair = findPair.concat(firstpair,lastPair)
+    afterAllPair = findPair.concat(firstpair,lastPair)
 }
 console.log(afterAllPair)
 
   return (
     <div className="App">
         <h1>Excluded Dates</h1>
+        <AnotherSolution/>
     </div>
   );
 }
